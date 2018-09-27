@@ -20,10 +20,10 @@ demog.poly <- readOGR("https://opendata.arcgis.com/datasets/2f11013d1302419aac24
 ```{r}
 leaflet(quakes.point) %>%
   addProviderTiles("Esri.WorldImagery", group = "Base") %>%
-  addProviderTiles("Thunderforest.TransportDark", group = "Dark") %>%
-  addProviderTiles("OpenStreetMap.BlackAndWhite", group = "Black&White") %>%
+  addProviderTiles("Esri.WorldTerrain", group = "Terrain") %>%
+  addProviderTiles("OpenStreetMap.BlackAndWhite", group = "Black and White") %>%
   addLayersControl(
-    baseGroups = c("Base", "Dark", "Black&White"),
+    baseGroups = c("Base", "Terrain", "Black and White"),
     options = layersControlOptions(collapsed = FALSE)) %>%
   addMarkers(  
     clusterOptions = markerClusterOptions()
@@ -63,7 +63,7 @@ leaflet(demog.poly) %>%
 
 #Polygons (ignore, but I want to keep this for myself)
 ```{r}
-leaflet(schooldist.poly) %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
-  addPolygons()
+# leaflet(schooldist.poly) %>%
+#   addProviderTiles("OpenStreetMap.Mapnik") %>%
+#   addPolygons()
 ```
