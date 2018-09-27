@@ -17,7 +17,6 @@ demog.poly <- readOGR("https://opendata.arcgis.com/datasets/2f11013d1302419aac24
 ```
 
 #Points
-#How do I make sure that the pop up works?
 ```{r}
 leaflet(quakes.point) %>%
   addProviderTiles("Esri.WorldImagery", group = "Base") %>%
@@ -41,27 +40,29 @@ leaflet(data = hwinjury.lines) %>%
   addPolylines(color = "red")
 ```
 
-#Polygons
+#Polygons (ignore, but I want to keep this for myself)
 ```{r}
 leaflet(schooldist.poly) %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
   addPolygons()
 ```
+
 #Polygons
-#How to fix the choropleth colors?
-#How to add a legend?
+
 ```{r}
-bins <- c(0, 25, 50, 75, 100, Inf)
-pal <- colorBin("#f0f0f0","#bdbdbd","#636363", domain = demog.poly$hislat, bins = bins)
+bins <- stats::quantile(demog.poly$hislat)
+pal <- colorBin(c("#f0f0f0","#bdbdbd","#636363"), domain = demog.poly$hislat, bins = bins)
 
 leaflet(demog.poly) %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
   addPolygons(
     fillColor = ~pal(hislat),
     weight = 2,
-    opacity = 1,
+    fillOpacity = .8,
     color ="white"
   ) %>%
-#  addLegend(position = "topright" , pal = pal, values = demog.poly$hislat, title = "Hispanic/Latinos by County")
+  addLegend(position = "topright" , pal = pal, values = demog.poly$hislat, title = "Hispanic/Latinos by County", labFormat = labelFormat(digits = 0))
+#have to do labFormat = labelFormat because that's going out of order in the addLegend function
+#If I want to see percents in my legend, I have to calculate a column of percents and then add "%" in the suffix argument for the addLegend function so it reads __%
 ```
 
