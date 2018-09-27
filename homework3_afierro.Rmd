@@ -51,7 +51,7 @@ leaflet(schooldist.poly) %>%
 
 ```{r}
 bins <- stats::quantile(demog.poly$hislat)
-pal <- colorBin(c("#f0f0f0","#bdbdbd","#636363"), domain = demog.poly$hislat, bins = bins)
+pal <- colorBin(c("#f7f7f7","#cccccc","#969696","#636363","#252525"), domain = demog.poly$hislat, bins = bins)
 
 leaflet(demog.poly) %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
