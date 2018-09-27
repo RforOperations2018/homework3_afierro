@@ -23,8 +23,8 @@ leaflet() %>%
 #Points
 ```{r}
 leaflet(quakes.point) %>%
-  addProviderTiles("Esri.WorldImagery")
-  addMarkers()
+  addProviderTiles("Esri.WorldImagery") %>%
+  addMarkers(~longitude, ~latitude, popup = ~as.character(city), label = ~as.character(city))
 ```
 
 
