@@ -12,8 +12,8 @@ library(rgdal)
 ```{r}
 quakes.point <- readOGR("https://opendata.arcgis.com/datasets/e0abee7e4fa446ea8cfe618bca7e60e4_62.geojson")
 hwinjury.lines <- readOGR("https://opendata.arcgis.com/datasets/a1fb5f1eb42a4e139cc8c89b468865a7_0.geojson")
-schooldist.poly <- readOGR("https://opendata.arcgis.com/datasets/07a10be1eb674ca99fd147474e1e0ca0_0.geojson")
 demog.poly <- readOGR("https://opendata.arcgis.com/datasets/2f11013d1302419aac243d6e1c56568f_0.geojson")
+#schooldist.poly <- readOGR("https://opendata.arcgis.com/datasets/07a10be1eb674ca99fd147474e1e0ca0_0.geojson")
 ```
 
 #Points
@@ -25,12 +25,12 @@ leaflet(quakes.point) %>%
   addLayersControl(
     baseGroups = c("Base", "Dark", "Black&White"),
     options = layersControlOptions(collapsed = FALSE)) %>%
-#  addMarkers(  
-#    clusterOptions = markerClusterOptions()
-#)
+  addMarkers(  
+    clusterOptions = markerClusterOptions()
+)
   
-  addMarkers(~longitude, ~latitude, popup = ~as.character(Name), label = ~as.character(Name))
-#label vs popup
+#addMarkers(~longitude, ~latitude, popup = ~as.character(Name), label = ~as.character(Name))
+#label vs popup; if you have labels, don't need popup and vice versa
 ```
 
 #Lines
@@ -38,13 +38,6 @@ leaflet(quakes.point) %>%
 leaflet(data = hwinjury.lines) %>%
   addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
   addPolylines(color = "red")
-```
-
-#Polygons (ignore, but I want to keep this for myself)
-```{r}
-leaflet(schooldist.poly) %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
-  addPolygons()
 ```
 
 #Polygons
@@ -62,7 +55,15 @@ leaflet(demog.poly) %>%
     color ="white"
   ) %>%
   addLegend(position = "topright" , pal = pal, values = demog.poly$hislat, title = "Hispanic/Latinos by County", labFormat = labelFormat(digits = 0))
+
 #have to do labFormat = labelFormat because that's going out of order in the addLegend function
 #If I want to see percents in my legend, I have to calculate a column of percents and then add "%" in the suffix argument for the addLegend function so it reads __%
 ```
 
+
+#Polygons (ignore, but I want to keep this for myself)
+```{r}
+leaflet(schooldist.poly) %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addPolygons()
+```
