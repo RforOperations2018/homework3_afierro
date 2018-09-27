@@ -22,12 +22,18 @@ leaflet() %>%
 ```
 #Points
 #How do I make sure that the pop up works?
+#Why don't all the maps work?
 ```{r}
 leaflet(quakes.point) %>%
-  addProviderTiles("Esri.WorldImagery") %>%
+  addTiles(group = "Esri.WorldImagery") %>%
+  addProviderTiles("CartoDB.DarkMatter", group = "Dark") %>%
+  addProviderTiles("OpenStreetMap.BlackAndWhite", group = "Black&White") %>%
+  addLayersControl(
+    baseGroups = c("Esri.WorldImagery", "Dark", "Black&White"),
+    options = layersControlOptions(collapsed = FALSE)) %>%
   addMarkers(  
     clusterOptions = markerClusterOptions()
-) 
+)
   
 #  addMarkers(~longitude, ~latitude, popup = ~as.character(city), label = ~as.character(city))
 ```
