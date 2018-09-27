@@ -1,0 +1,62 @@
+```{r}
+library(rgdal)
+library(leaflet)
+library(leaflet.extras)
+
+library(dplyr)
+library(readxl)
+library(stringr)
+library(rgdal)
+```
+
+```{r}
+quakes.point <- readOGR("https://opendata.arcgis.com/datasets/e0abee7e4fa446ea8cfe618bca7e60e4_62.geojson")
+hwinjury.lines <- readOGR("https://opendata.arcgis.com/datasets/a1fb5f1eb42a4e139cc8c89b468865a7_0.geojson")
+schooldist.poly <- readOGR("https://opendata.arcgis.com/datasets/07a10be1eb674ca99fd147474e1e0ca0_0.geojson")
+demog.poly <- readOGR("https://opendata.arcgis.com/datasets/2f11013d1302419aac243d6e1c56568f_0.geojson")
+```
+#Basemap
+```{r}
+leaflet() %>%
+  addProviderTiles("OpenStreetMap.Mapnik")
+```
+#Points
+```{r}
+leaflet(quakes.point) %>%
+  addProviderTiles("Esri.WorldImagery")
+  addMarkers()
+```
+
+
+
+#Lines
+```{r}
+leaflet(data = hwinjury.lines) %>%
+  addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
+  addPolylines(color = "red")
+```
+
+#Polygons
+```{r}
+leaflet(schooldist.poly) %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addPolygons()
+```
+#Polygons
+#How to fix the choropleth colors?
+#How to add a legend?
+```{r}
+bins <- c(0, 25, 50, 75, 100, Inf)
+pal <- colorBin("#f0f0f0","#bdbdbd","#636363", domain = demog.poly$hislat, bins = bins)
+
+leaflet(demog.poly) %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addPolygons(
+    fillColor = ~pal(hislat),
+    weight = 2,
+    opacity = 1,
+    color ="white",
+  )
+
+```
+
