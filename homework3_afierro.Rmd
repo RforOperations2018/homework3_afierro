@@ -58,8 +58,8 @@ leaflet(demog.poly) %>%
     fillColor = ~pal(hislat),
     weight = 2,
     opacity = 1,
-    color ="white",
-  )
-
+    color ="white"
+  ) %>%
+#  addLegend(position = "topright" , pal = pal, values = demog.poly$hislat, title = "Hispanic/Latinos by County")
 ```
 
