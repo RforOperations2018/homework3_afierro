@@ -25,8 +25,8 @@ leaflet() %>%
 #Why don't all the maps work?
 ```{r}
 leaflet(quakes.point) %>%
-  addTiles(group = "Esri.WorldImagery") %>%
-  addProviderTiles("CartoDB.DarkMatter", group = "Dark") %>%
+  addProviderTiles("Esri.WorldImagery", group = "Default") %>%
+  addProviderTiles("Thunderforest.TransportDark", group = "Dark") %>%
   addProviderTiles("OpenStreetMap.BlackAndWhite", group = "Black&White") %>%
   addLayersControl(
     baseGroups = c("Esri.WorldImagery", "Dark", "Black&White"),
