@@ -15,27 +15,23 @@ hwinjury.lines <- readOGR("https://opendata.arcgis.com/datasets/a1fb5f1eb42a4e13
 schooldist.poly <- readOGR("https://opendata.arcgis.com/datasets/07a10be1eb674ca99fd147474e1e0ca0_0.geojson")
 demog.poly <- readOGR("https://opendata.arcgis.com/datasets/2f11013d1302419aac243d6e1c56568f_0.geojson")
 ```
-#Basemap
-```{r}
-leaflet() %>%
-  addProviderTiles("OpenStreetMap.Mapnik")
-```
+
 #Points
 #How do I make sure that the pop up works?
-#Why don't all the maps work?
 ```{r}
 leaflet(quakes.point) %>%
-  addProviderTiles("Esri.WorldImagery", group = "Default") %>%
+  addProviderTiles("Esri.WorldImagery", group = "Base") %>%
   addProviderTiles("Thunderforest.TransportDark", group = "Dark") %>%
   addProviderTiles("OpenStreetMap.BlackAndWhite", group = "Black&White") %>%
   addLayersControl(
-    baseGroups = c("Esri.WorldImagery", "Dark", "Black&White"),
+    baseGroups = c("Base", "Dark", "Black&White"),
     options = layersControlOptions(collapsed = FALSE)) %>%
-  addMarkers(  
-    clusterOptions = markerClusterOptions()
-)
+#  addMarkers(  
+#    clusterOptions = markerClusterOptions()
+#)
   
-#  addMarkers(~longitude, ~latitude, popup = ~as.character(city), label = ~as.character(city))
+  addMarkers(~longitude, ~latitude, popup = ~as.character(Name), label = ~as.character(Name))
+#label vs popup
 ```
 
 #Lines
