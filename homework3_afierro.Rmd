@@ -45,7 +45,7 @@ leaflet(data = hwinjury.lines) %>%
 ```{r}
 bins <- stats::quantile(demog.poly$hislat)
 pal <- colorBin(c("#f7f7f7","#cccccc","#969696","#636363","#252525"), domain = demog.poly$hislat, bins = bins)
-
+ # No time for percents? ;-)
 leaflet(demog.poly) %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
   addPolygons(
@@ -63,6 +63,7 @@ leaflet(demog.poly) %>%
 
 #Polygons (ignore, but I want to keep this for myself)
 ```{r}
+# Ignored
 # leaflet(schooldist.poly) %>%
 #   addProviderTiles("OpenStreetMap.Mapnik") %>%
 #   addPolygons()
